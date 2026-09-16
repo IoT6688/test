@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Những Đốm Sáng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #120E1B;
+    --bg-soft: #1B1529;
+    --panel: #221A34;
+    --ink: #F1E9DC;
+    --muted: #9C90B0;
+    --gold: #EFC172;
+    --gold-dim: #B9925A;
+    --lavender: #A996D6;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+  h1,h2,h3{ font-family:'Playfair Display', serif; font-weight:600; }
+
+  a{ color:inherit; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6%;
+    background:rgba(18,14,27,0.7);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(241,233,220,0.06);
+  }
+  nav .brand{ font-family:'Playfair Display', serif; font-style:italic; font-size:1.1rem; color:var(--gold); }
+  nav ul{ list-style:none; display:none; gap:30px; }
+  nav a{ text-decoration:none; font-size:0.9rem; color:var(--muted); transition:color 0.25s; }
+  nav a:hover{ color:var(--ink); }
+  @media(min-width:760px){ nav ul{ display:flex; } }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:120px 6% 60px;
+    overflow:hidden;
+  }
+  .sky{ position:absolute; inset:0; z-index:0; }
+  .speck{
+    position:absolute; border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 6px 1px rgba(239,193,114,0.6);
+    animation:twinkle ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.15; transform:scale(0.8); }
+    50%{ opacity:0.95; transform:scale(1.15); }
+  }
+  .hero-content{ position:relative; z-index:1; }
+  .hero .kicker{
+    font-size:0.85rem; color:var(--muted); letter-spacing:0.04em; margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 8vw, 5.4rem);
+    font-style:italic;
+    color:var(--ink);
+    text-shadow:0 0 40px rgba(239,193,114,0.25);
+    line-height:1.08;
+  }
+  .hero p{
+    margin-top:22px; color:var(--muted); font-size:1.05rem;
+    max-width:480px; margin-left:auto; margin-right:auto;
+  }
+  .hero .scroll-cue{
+    margin-top:70px; font-size:0.8rem; color:rgba(156,144,176,0.7);
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:110px 6%; max-width:1040px; margin:0 auto; position:relative; }
+  .head{ max-width:560px; margin-bottom:52px; }
+  .head h2{ font-size:clamp(1.9rem,3.6vw,2.5rem); }
+  .head p{ margin-top:14px; color:var(--muted); font-size:1.02rem; max-width:56ch; }
+
+  /* ---------- INSPIRATION ---------- */
+  .inspire{ display:grid; grid-template-columns:1fr; gap:48px; align-items:center; }
+  @media(min-width:800px){ .inspire{ grid-template-columns:1fr 0.9fr; } }
+  .inspire p{ color:#D8CFE3; font-size:1.06rem; }
+  .inspire p + p{ margin-top:16px; }
+  .inspire .glow-art{ display:flex; justify-content:center; }
+  .cluster{ position:relative; width:260px; height:260px; }
+  .cluster .dot{
+    position:absolute; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #FCE3B0, var(--gold) 60%, transparent 75%);
+    animation:twinkle ease-in-out infinite;
+  }
+
+  /* ---------- MOMENTS GRID ---------- */
+  .moment-grid{
+    display:grid; grid-template-columns:1fr; gap:1px;
+    background:rgba(241,233,220,0.08);
+    border:1px solid rgba(241,233,220,0.08);
+  }
+  @media(min-width:640px){ .moment-grid{ grid-template-columns:repeat(3,1fr); } }
+  .moment{
+    background:var(--bg-soft);
+    padding:34px 26px;
+    cursor:pointer;
+    transition:background 0.35s ease;
+  }
+  .moment:hover, .moment.lit{ background:var(--panel); }
+  .moment .dot-mark{
+    width:10px; height:10px; border-radius:50%;
+    background:var(--gold-dim);
+    margin-bottom:18px;
+    transition:box-shadow 0.35s ease, background 0.35s ease;
+  }
+  .moment:hover .dot-mark, .moment.lit .dot-mark{
+    background:var(--gold);
+    box-shadow:0 0 14px 3px rgba(239,193,114,0.55);
+  }
+  .moment h3{ font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--ink); font-family:'Inter',sans-serif; }
+  .moment p{ font-size:0.94rem; color:var(--muted); }
+
+  /* ---------- YOUR OWN SPECKS ---------- */
+  .make{
+    background:var(--bg-soft);
+    border:1px solid rgba(241,233,220,0.08);
+    padding:clamp(28px,4vw,48px);
+  }
+  .make-form{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:28px; }
+  .make-form input{
+    flex:1; min-width:220px;
+    background:var(--bg);
+    border:1px solid rgba(241,233,220,0.15);
+    color:var(--ink);
+    padding:13px 16px;
+    font-family:'Inter',sans-serif; font-size:0.95rem;
+    border-radius:2px;
+  }
+  .make-form input:focus{ outline:none; border-color:var(--gold-dim); }
+  .make-form button{
+    background:var(--gold);
+    color:#1B1529;
+    border:none; padding:13px 24px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:0.9rem;
+    cursor:pointer; border-radius:2px;
+    transition:background 0.25s;
+  }
+  .make-form button:hover{ background:var(--gold-dim); }
+  .speck-sky{
+    min-height:140px;
+    display:flex; flex-wrap:wrap; gap:14px; align-content:flex-start;
+  }
+  .speck-chip{
+    display:inline-flex; align-items:center; gap:9px;
+    background:var(--panel);
+    border:1px solid rgba(239,193,114,0.25);
+    padding:9px 16px;
+    border-radius:999px;
+    font-size:0.88rem; color:#EFE7D8;
+    animation:twinkle 3.2s ease-in-out infinite;
+  }
+  .speck-chip .bead{ width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 8px 2px rgba(239,193,114,0.6); }
+  .make-empty{ color:var(--muted); font-size:0.92rem; font-style:italic; }
+
+  /* ---------- MUSIC ---------- */
+  .music{
+    background:var(--panel);
+    border:1px solid rgba(241,233,220,0.08);
+    padding:40px clamp(20px,4vw,48px);
+    display:flex; flex-direction:column; gap:22px;
+  }
+  @media(min-width:700px){ .music{ flex-direction:row; align-items:center; justify-content:space-between; } }
+  .music-info h3{ font-size:1.25rem; margin-bottom:6px; }
+  .music-info p{ color:var(--muted); font-size:0.94rem; max-width:42ch; }
+  audio{ width:100%; max-width:340px; filter:invert(0.9) hue-rotate(180deg); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center; padding:48px 6% 60px;
+    color:var(--muted); font-size:0.85rem;
+    border-top:1px solid rgba(241,233,220,0.08);
+  }
+  footer .brand{ color:var(--gold); font-family:'Playfair Display', serif; font-style:italic; }
+  footer .note{ margin-top:10px; max-width:52ch; margin-left:auto; margin-right:auto; opacity:0.75; font-size:0.8rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Những Đốm Sáng</div>
+  <ul>
+    <li><a href="#cam-hung">Cảm hứng</a></li>
+    <li><a href="#khoanh-khac">Khoảnh khắc</a></li>
+    <li><a href="#dom-sang-cua-ban">Đốm sáng của bạn</a></li>
+    <li><a href="#nghe-lai">Nghe lại</a></li>
+  </ul>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="sky" id="sky"></div>
+  <div class="hero-content">
+    <div class="kicker">lấy cảm hứng từ tinh thần bài hát của tlinh</div>
+    <h1>Những Đốm<br>Sáng</h1>
+    <p>Giữa hàng tỷ vì sao trong vũ trụ, hai tâm hồn nhỏ bé vẫn tìm được đường về với nhau.</p>
+    <div class="scroll-cue">CUỘN XUỐNG ↓</div>
+  </div>
+</header>
+
+<!-- ================= INSPIRATION ================= -->
+<section id="cam-hung">
+  <div class="head">
+    <h2>Nếu ta chỉ là hai đốm sáng giữa thiên hà</h2>
+  </div>
+  <div class="inspire">
+    <div>
+      <p>Có những cuộc gặp gỡ mà lý trí không giải thích nổi — một ánh nhìn đầu tiên đã thấy quen, như thể đây không phải lần đầu hai người đứng cạnh nhau. Dù tin vào số phận hay chỉ là sự tình cờ, cảm giác ấy vẫn có thật.</p>
+      <p>Trang này không phải là lời bài hát — chỉ là một không gian nhỏ để giữ lại ý niệm đó: giữa vũ trụ rộng lớn, nơi mỗi người chỉ là một đốm sáng nhỏ nhoi, vẫn có những cặp đốm sáng luôn tìm được đường quay về với nhau, dù phải cách xa hay lạc mất nhau qua bao kiếp.</p>
+    </div>
+    <div class="glow-art">
+      <div class="cluster" id="cluster"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MOMENTS ================= -->
+<section id="khoanh-khac">
+  <div class="head">
+    <h2>Những khoảnh khắc nhỏ</h2>
+    <p>Chạm vào từng ô để giữ lại đốm sáng của riêng nó.</p>
+  </div>
+  <div class="moment-grid" id="moment-grid">
+    <div class="moment">
+      <div class="dot-mark"></div>
+      <h3>Ánh nhìn đầu tiên</h3>
+      <p>Lạ mà quen, như đã từng gặp nhau ở một nơi không nhớ tên.</p>
+    </div>
+    <div class="moment">
+      <div class="dot-mark"></div>
+      <h3>Một giấc mơ lặp lại</h3>
+      <p>Một gương mặt xuất hiện trước cả khi ngoài đời gặp được.</p>
+    </div>
+    <div class="moment">
+      <div class="dot-mark"></div>
+      <h3>Nhịp tim cùng tần số</h3>
+      <p>Không cần nói gì, cả hai vẫn hiểu nhau như đã hẹn từ trước.</p>
+    </div>
+    <div class="moment">
+      <div class="dot-mark"></div>
+      <h3>Một khoảng cách bất đắc dĩ</h3>
+      <p>Dù không còn cạnh nhau, vẫn cảm nhận được người kia đang nghĩ về mình.</p>
+    </div>
+    <div class="moment">
+      <div class="dot-mark"></div>
+      <h3>Một bài học riêng</h3>
+      <p>Có những chặng đường phải đi một mình, để biết trân trọng lần gặp lại.</p>
+    </div>
+    <div class="moment">
+      <div class="dot-mark"></div>
+      <h3>Ngước nhìn bầu trời đêm</h3>
+      <p>Tin rằng đâu đó giữa hàng triệu vì sao, vẫn có một điều đã được viết sẵn cho hai người.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= USER'S OWN SPECKS ================= -->
+<section id="dom-sang-cua-ban">
+  <div class="head">
+    <h2>Đốm sáng của riêng bạn</h2>
+    <p>Viết ra một khoảnh khắc khiến bạn tin vào duyên số, hoặc một người bạn nghĩ mình đã gặp từ kiếp trước. Nó sẽ ở lại đây, trên chính máy của bạn.</p>
+  </div>
+  <div class="make">
+    <div class="make-form">
+      <input id="speck-input" type="text" placeholder="Điều gì khiến bạn tin vào duyên số?" maxlength="120">
+      <button id="speck-add">Thêm vào bầu trời</button>
+    </div>
+    <div class="speck-sky" id="speck-sky">
+      <span class="make-empty" id="speck-empty">Chưa có đốm sáng nào — bắt đầu bằng một điều nhỏ thôi.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MUSIC ================= -->
+<section id="nghe-lai">
+  <div class="head">
+    <h2>Nghe lại</h2>
+    <p>Gắn file nhạc của riêng bạn vào đây để không gian trọn vẹn hơn khi ghé thăm trang.</p>
+  </div>
+  <div class="music">
+    <div class="music-info">
+      <h3>♪ Nhạc nền</h3>
+      <p>Đặt file mp3 cùng thư mục với trang này, đổi src bên dưới thành đúng tên file — vì lý do bản quyền, trang này không kèm sẵn bài hát.</p>
+    </div>
+    <audio controls loop>
+      <source src="nhac.mp3" type="audio/mpeg">
+      Trình duyệt của bạn không hỗ trợ phát nhạc trực tiếp.
+    </audio>
+  </div>
+</section>
+
+<footer>
+  <p><span class="brand">Những Đốm Sáng</span> — một góc nhỏ giữ lại những điều lấp lánh.</p>
+  <p class="note">Trang lấy cảm hứng từ tinh thần và tên bài hát "Những Đốm Sáng" của tlinh, không sao chép lời bài hát hay đại diện chính thức cho nghệ sĩ.</p>
+</footer>
+
+<script>
+  // Twinkling sky in hero
+  (function(){
+    const sky = document.getElementById('sky');
+    const count = window.innerWidth < 640 ? 40 : 70;
+    for(let i=0;i<count;i++){
+      const s = document.createElement('div');
+      s.className = 'speck';
+      const size = 2 + Math.random()*4;
+      s.style.width = size+'px';
+      s.style.height = size+'px';
+      s.style.left = (Math.random()*100)+'%';
+      s.style.top = (Math.random()*100)+'%';
+      s.style.animationDuration = (2.5+Math.random()*3.5)+'s';
+      s.style.animationDelay = '-'+(Math.random()*6)+'s';
+      sky.appendChild(s);
+    }
+  })();
+
+  // Cluster of glowing dots for inspiration section
+  (function(){
+    const cluster = document.getElementById('cluster');
+    const positions = [
+      [40,30,26],[130,60,40],[200,40,18],[80,140,32],
+      [170,150,22],[110,200,30],[220,210,16],[30,210,20]
+    ];
+    positions.forEach(([x,y,size],i)=>{
+      const d = document.createElement('div');
+      d.className = 'dot';
+      d.style.width = size+'px';
+      d.style.height = size+'px';
+      d.style.left = x+'px';
+      d.style.top = y+'px';
+      d.style.animationDuration = (2.8+Math.random()*2.5)+'s';
+      d.style.animationDelay = '-'+(Math.random()*5)+'s';
+      cluster.appendChild(d);
+    });
+  })();
+
+  // Click a moment card to "light" it (toggle, stays lit)
+  (function(){
+    document.querySelectorAll('.moment').forEach(function(card){
+      card.addEventListener('click', function(){
+        card.classList.toggle('lit');
+      });
+    });
+  })();
+
+  // User-added specks, persisted locally on this device
+  (function(){
+    const input = document.getElementById('speck-input');
+    const btn = document.getElementById('speck-add');
+    const sky = document.getElementById('speck-sky');
+    const emptyMsg = document.getElementById('speck-empty');
+    const STORAGE_KEY = 'dom-sang-entries';
+
+    function load(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      }catch(e){ return []; }
+    }
+    function save(list){
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }catch(e){}
+    }
+    function render(){
+      const list = load();
+      sky.innerHTML = '';
+      if(list.length === 0){
+        sky.appendChild(emptyMsg);
+        return;
+      }
+      list.forEach(function(text){
+        const chip = document.createElement('span');
+        chip.className = 'speck-chip';
+        chip.style.animationDelay = '-'+(Math.random()*3)+'s';
+        const bead = document.createElement('span');
+        bead.className = 'bead';
+        chip.appendChild(bead);
+        chip.appendChild(document.createTextNode(text));
+        sky.appendChild(chip);
+      });
+    }
+    function addSpeck(){
+      const val = input.value.trim();
+      if(!val) return;
+      const list = load();
+      list.push(val);
+      save(list);
+      input.value = '';
+      render();
+    }
+    btn.addEventListener('click', addSpeck);
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter') addSpeck();
+    });
+    render();
+  })();
+</script>
+
+</body>
+</html>
